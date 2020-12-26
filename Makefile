@@ -1,7 +1,7 @@
 CC = g++
 
 default: main.o
-	$(CC) main.o -o output
+	$(CC) main.o -o output.o
 
 main.o: main.c
 

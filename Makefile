@@ -1,4 +1,4 @@
-CC = g++
+CC = cc
 
 
 default: main.o

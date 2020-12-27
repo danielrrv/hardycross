@@ -1,5 +1,6 @@
 CC = g++
 
+
 default: main.o
 	$(CC) main.o -o output.o
 

@@ -62,7 +62,7 @@ void printGraph(Graph *graph)
 	for (v = 0; v < graph->numberOfVertices; v++)
 	{
 		Node *temp = graph->adj[v];
-		printf("\n Vertex %d\n: ", v);
+		printf("\n Vertex %d: ", v);
 		while (temp)
 		{
 			printf("%d -> ", temp->vertex);
@@ -72,8 +72,9 @@ void printGraph(Graph *graph)
 	}
 };
 
+//Declarations
+double **reader(char *, size_t, size_t);
 
-double **reader(char *, size_t *, size_t *);
 int main(int argc, char *argv[])
 {
 
@@ -95,33 +96,30 @@ int main(int argc, char *argv[])
 	}
 
 	size_t row = sizeof(file) - 1;
-	double **data = reader("data.txt", &row, &column);
+	double **data = reader("data.txt", row, column);
 	Graph *graph = createGraph(column);
-	addEdge(graph, 2, 4, 1, 0.323);
-	addEdge(graph, 1, 3, 1, 0.4);
-	addEdge(graph, 2, 5, 32.3, 0.05);
-	addEdge(graph, 7, 2, 32.3, 0.05);
-	addEdge(graph, 1, 3, 32.3, 0.05);
-	addEdge(graph, 8, 4, 32.3, 0.05);
-	//printGraph(graph);
+	for (int i = 0;i< row;i++){
+		addEdge(graph, data[i][0], data[i][1], data[i][2], data[i][3]);
+	}
+	printGraph(graph);
 
 	return 0;
 }
 
-double **reader(char *filename, size_t *row, size_t *column)
+double **reader(char *filename, size_t row, size_t column)
 {
 
 	FILE *file;
 	double **data;
-	data = (double **)malloc((*row) * sizeof(double *));
-	for (int i = 0; i < (*row); ++i)
+	data = (double **)malloc(row * sizeof(double *));
+	for (int i = 0; i < row; ++i)
 	{
-		data[i] = (double *)malloc((*column) * sizeof(double));
+		data[i] = (double *)malloc(column * sizeof(double));
 	}
 	file = fopen(filename, "r");
 	char buffer[1024];
 	int i = 0;
-	for (; fgets(buffer, 1024, file) && (i < (*row));)
+	for (; fgets(buffer, 1024, file) && (i < row);)
 	{
 		char *tmp = strdup(buffer);
 		if (i > 0)
@@ -132,11 +130,10 @@ double **reader(char *filename, size_t *row, size_t *column)
 			for (tok = strtok(buffer, delim); tok && *tok; j++, tok = strtok(NULL, delim))
 			{
 				data[i][j] = atof(tok);
-				printf("%f\t", data[i][j]);
+				printf("%.2f\t", data[i][j]);
 			}
 			printf("\n");
 		}
-
 		free(tmp);
 		i++;
 	}

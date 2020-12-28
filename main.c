@@ -2,19 +2,16 @@
 #include <string.h>
 #include <stdlib.h>
 
-//#include <math.h>
-//#include <string.h>
-//#include <float.h>
-//#include <time.h>
-
+//Structures of the problems//
 typedef struct Node
 {
 	int vertex;
 	struct Node *next;
 	double rate;
 	float resistence;
-} Node;
 
+} Node;
+//Implementation to create Nodes
 Node *createNode(int V, double rate, float resistence)
 {
 	Node *node = (Node *)malloc(sizeof(Node));
@@ -24,12 +21,15 @@ Node *createNode(int V, double rate, float resistence)
 	node->next = NULL;
 	return node;
 };
+
+//
 typedef struct Graph
 {
 	int numberOfVertices;
 	Node **adj; //<--pointer of Node and defined as pointer array too.
 } Graph;
 
+//
 Graph *createGraph(int V)
 {
 	Graph *graph = (Graph *)malloc(sizeof(Graph));
@@ -40,13 +40,12 @@ Graph *createGraph(int V)
 		graph->adj[i] = NULL;
 	return graph;
 };
-
+//Implemention to add edges to the graph
 void addEdge(Graph *graph, int src, int dest, double rate, float resistence)
 {
 	// Add edge from s to d
 	Node *newNode = createNode(dest, rate, resistence);
 	newNode->next = graph->adj[src];
-
 	graph->adj[src] = newNode;
 
 	// Add edge from d to s
@@ -73,13 +72,15 @@ void printGraph(Graph *graph)
 };
 
 //Declarations
+//Declaration to read csv file or comma-delimited files.
 double **reader(char *, size_t, size_t);
 
 int main(int argc, char *argv[])
 {
-
+	//Implementation to get csv dimenssions.
 	FILE *file;
 	char buffer[1024];
+	//TODO: This can fail. Add Error handling.
 	file = fopen("data.txt", "r");
 	size_t column;
 	for (int i = 0; fgets(buffer, 1024, file); i++)
@@ -90,15 +91,15 @@ int main(int argc, char *argv[])
 	tok = strtok(buffer, delim);
 	while (tok != NULL)
 	{
-		//printf("\nToken : %s\n", tok);
 		tok = strtok(NULL, delim);
 		column = ++j;
 	}
 
 	size_t row = sizeof(file) - 1;
 	double **data = reader("data.txt", row, column);
-	Graph *graph = createGraph(column);
-	for (int i = 0;i< row;i++){
+	Graph *graph = createGraph(row);
+	for (int i = 0; i < row; i++)
+	{
 		addEdge(graph, data[i][0], data[i][1], data[i][2], data[i][3]);
 	}
 	printGraph(graph);

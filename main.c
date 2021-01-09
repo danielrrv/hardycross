@@ -22,6 +22,14 @@ Node *createNode(int V, double rate, float resistence)
 	return node;
 };
 
+typedef enum columns
+{
+	node1 = 0,
+	node2 = 1,
+	rate = 2,
+	resistence = 3
+};
+
 //
 typedef struct Graph
 {
@@ -86,7 +94,7 @@ int main(int argc, char *argv[])
 	for (int i = 0; fgets(buffer, 1024, file); i++)
 		;
 	const char *tok;
-	char delim[] = {","};
+	char *delim = ',';
 	int j = 0;
 	tok = strtok(buffer, delim);
 	while (tok != NULL)
@@ -96,11 +104,12 @@ int main(int argc, char *argv[])
 	}
 
 	size_t row = sizeof(file) - 1;
+	fclose(file);
 	double **data = reader("data.txt", row, column);
 	Graph *graph = createGraph(row);
 	for (int i = 0; i < row; i++)
 	{
-		addEdge(graph, data[i][0], data[i][1], data[i][2], data[i][3]);
+		addEdge(graph, data[i][node1], data[i][node2], data[i][rate], data[i][resistence]);
 	}
 	printGraph(graph);
 
@@ -138,5 +147,6 @@ double **reader(char *filename, size_t row, size_t column)
 		free(tmp);
 		i++;
 	}
+	fclose(file);
 	return data;
 }

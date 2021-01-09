@@ -2,7 +2,7 @@ CC = cc
 
 
 default: main.o
-	$(CC) main.o -o output.o
+	$(CC) main.o -std=c11 -Wall -Werror  -o output.o
 
 main.o: main.c
 

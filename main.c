@@ -2,15 +2,10 @@
 #include <string.h>
 #include <stdlib.h>
 
-//Structures of the problems//
-typedef struct Node
-{
-	int vertex;
-	struct Node *next;
-	double rate;
-	float resistence;
+//custom header.
+#include "types.h"
 
-} Node;
+
 //Implementation to create Nodes
 Node *createNode(int V, double rate, float resistence)
 {
@@ -21,23 +16,6 @@ Node *createNode(int V, double rate, float resistence)
 	node->next = NULL;
 	return node;
 };
-
-typedef enum columns
-{
-	node1 = 0,
-	node2 = 1,
-	rate = 2,
-	resistence = 3
-};
-
-//
-typedef struct Graph
-{
-	int numberOfVertices;
-	Node **adj; //<--pointer of Node and defined as pointer array too.
-} Graph;
-
-//
 Graph *createGraph(int V)
 {
 	Graph *graph = (Graph *)malloc(sizeof(Graph));
@@ -82,19 +60,29 @@ void printGraph(Graph *graph)
 //Declarations
 //Declaration to read csv file or comma-delimited files.
 double **reader(char *, size_t, size_t);
+void report(char  message[255]);
 
 int main(int argc, char *argv[])
 {
+	//declare a filename
+	char filename[55];
+	//fill it empty \0
+	memset(filename,'\0', 55);
+	if(2 > argc){
+		report("Provide a filepath");
+		return EXIT_FAILURE;
+	}
+	strcpy(filename, argv[1]);
 	//Implementation to get csv dimenssions.
 	FILE *file;
 	char buffer[1024];
 	//TODO: This can fail. Add Error handling.
-	file = fopen("data.txt", "r");
-	size_t column;
+	file = fopen(filename, "r");
+	dimension column;
 	for (int i = 0; fgets(buffer, 1024, file); i++)
 		;
 	const char *tok;
-	char *delim = ',';
+	char *delim = ",";
 	int j = 0;
 	tok = strtok(buffer, delim);
 	while (tok != NULL)
@@ -103,20 +91,20 @@ int main(int argc, char *argv[])
 		column = ++j;
 	}
 
-	size_t row = sizeof(file) - 1;
+	dimension row = sizeof(file) - 1;
 	fclose(file);
 	double **data = reader("data.txt", row, column);
 	Graph *graph = createGraph(row);
 	for (int i = 0; i < row; i++)
 	{
-		addEdge(graph, data[i][node1], data[i][node2], data[i][rate], data[i][resistence]);
+		addEdge(graph, data[i][(int)node1], data[i][(int)node2], data[i][(int)rate], data[i][(int)resistence]);
 	}
 	printGraph(graph);
 
 	return 0;
 }
 
-double **reader(char *filename, size_t row, size_t column)
+double **reader(char *filename, dimension row, dimension column)
 {
 
 	FILE *file;
@@ -149,4 +137,12 @@ double **reader(char *filename, size_t row, size_t column)
 	}
 	fclose(file);
 	return data;
+}
+
+void report (char message[255]){
+		printf("\033[1;31m");
+		printf("Exception: " );
+		printf("\033[0m");
+		printf(message);
+		printf("\n");
 }

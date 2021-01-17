@@ -60,7 +60,7 @@ void printGraph(Graph *graph)
 //Declarations
 //Declaration to read csv file or comma-delimited files.
 double **reader(char *, size_t, size_t);
-void report(char  message[255]);
+void report(const char * message);
 
 int main(int argc, char *argv[])
 {
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 	for (int i = 0; fgets(buffer, 1024, file); i++)
 		;
 	const char *tok;
-	char *delim = ",";
+	const char *delim = ",";
 	int j = 0;
 	tok = strtok(buffer, delim);
 	while (tok != NULL)
@@ -125,7 +125,7 @@ double **reader(char *filename, dimension row, dimension column)
 			int j = 0;
 			const char *tok;
 			char delim[] = {","};
-			for (tok = strtok(buffer, delim); tok && *tok; j++, tok = strtok(NULL, delim))
+			for (tok = strtok(buffer, delim); tok!=NULL && *tok; j++, tok = strtok(NULL, delim))
 			{
 				data[i][j] = atof(tok);
 				printf("%.2f\t", data[i][j]);
@@ -139,11 +139,7 @@ double **reader(char *filename, dimension row, dimension column)
 	return data;
 }
 
-void report (char message[255]){
-		printf("\033[1;31m");
-		printf("Exception: " );
-		printf("\033[0m");
-		printf(message);
-		printf("\n");
+void report (const char * message){
+		printf("\033[1;31mException:\033[0m %s\n", message);
 }
 //END OF THE SOURCE.

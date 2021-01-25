@@ -14,7 +14,7 @@
  	#define DEBUG_LOG 0
 #endif
 
-#define DEBUG_PRINT(format,...) do { fprintf(stderr, format, __VA_ARGS__); }while (0)
+#define DEBUG_PRINT(format,...) do {if(DEBUG_LOG) fprintf(stderr, format, __VA_ARGS__); }while (0)
 
 
 /**

@@ -2,7 +2,7 @@ CC = gcc
 
 
 default: main.o
-	$(CC) main.o $(CFLAGS) -std=c11 -Wall -Werror  -o output.o -D DEBUG=1
+	$(CC) main.o $(CFLAGS) -std=c11 -Wall -Werror  -o output.o
 
 main.o: main.c
 

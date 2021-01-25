@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <sys/errno.h>
+#include <assert.h> 
 //custom header.
 #include "types.h"
 
@@ -9,6 +10,9 @@
 //Implementation to create Nodes
 Node *createNode(int V, double rate, float resistence)
 {
+	#ifdef DEBUG
+	DEBUG_PRINT("Creating node\n \trate:%.2f\n\tresistence:%.2f\n",rate, resistence);
+	#endif
 	Node *node = (Node *)malloc(sizeof(Node));
 	node->vertex = V;
 	node->rate = rate;
@@ -57,10 +61,6 @@ void printGraph(Graph *graph)
 	}
 };
 
-//Declarations
-//Declaration to read csv file or comma-delimited files.
-double **reader(char *, size_t, size_t);
-void report(const char * message);
 
 int main(int argc, char *argv[])
 {
@@ -70,14 +70,20 @@ int main(int argc, char *argv[])
 	memset(filename,'\0', 55);
 	if(2 > argc){
 		report("Provide a filepath");
-		return EXIT_FAILURE;
+		exit(1);
 	}
 	strcpy(filename, argv[1]);
 	//Implementation to get csv dimenssions.
-	FILE *file;
+	FILE *file = NULL;
 	char buffer[1024];
 	//TODO: This can fail. Add Error handling.
 	file = fopen(filename, "r");
+	if(file==NULL){
+		fprintf(stderr, "File %s: %s\n", filename, strerror(errno));
+		exit(1);
+	}
+
+
 	dimension column;
 	for (int i = 0; fgets(buffer, 1024, file); i++)
 		;
@@ -106,8 +112,8 @@ int main(int argc, char *argv[])
 
 double **reader(char *filename, dimension row, dimension column)
 {
-
-	FILE *file;
+	assert(column==4 && "Csv file does not have 4 columns");
+	FILE *file = NULL;
 	double **data;
 	data = (double **)malloc(row * sizeof(double *));
 	for (int i = 0; i < row; ++i)
@@ -115,6 +121,10 @@ double **reader(char *filename, dimension row, dimension column)
 		data[i] = (double *)malloc(column * sizeof(double));
 	}
 	file = fopen(filename, "r");
+	if(file==NULL){
+		fprintf(stderr, "File %s: %s\n", filename, strerror(errno));
+		exit(1);
+	}
 	char buffer[1024];
 	int i = 0;
 	for (; fgets(buffer, 1024, file) && (i < row);)

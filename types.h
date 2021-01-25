@@ -8,7 +8,7 @@
 
 
 
-#if DEBUG
+#ifdef DEBUG 
 	#define DEBUG_LOG 1
 #else
  	#define DEBUG_LOG 0

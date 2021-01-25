@@ -10,9 +10,7 @@
 //Implementation to create Nodes
 Node *createNode(int V, double rate, float resistence)
 {
-	#ifdef DEBUG
 	DEBUG_PRINT("Creating node\n \trate:%.2f\n\tresistence:%.2f\n",rate, resistence);
-	#endif
 	Node *node = (Node *)malloc(sizeof(Node));
 	node->vertex = V;
 	node->rate = rate;

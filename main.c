@@ -1,11 +1,6 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/errno.h>
-#include <assert.h> 
+
 //custom header.
 #include "types.h"
-
 
 //Implementation to create Nodes
 Node *createNode(int V, double rate, float resistence)

@@ -1,11 +1,13 @@
 CC = gcc
 
 
-output: main.o
-	$(CC) main.o $(CFLAGS) -std=c11 -Wall -Werror -o output
+default: main.o file.o
+	$(CC) main.o file.o $(CFLAGS) -std=c11 -Wall -Werror -o output
 
-main.o: main.c
-	#$(CC) -c main.c
+main.o: main.c 
+	$(CC) -c main.c 
+file.o: file.c 
+	$(CC) -c file.c
 
 clean:
 	rm output *.o 2> /dev/null

@@ -1,9 +1,9 @@
-#include "types.h"
+
+#include "file.h"
 
 
 
-
-
+//Capture the rows and column sizes.
 CSV *get_column_row_function(char *source)
 {
 

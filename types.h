@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sys/errno.h>
 #include <assert.h>
+#include <stdbool.h>
 
 #ifndef HARDYCROSS_TYPES_H_
 #define HARDYCROSS_TYPES_H_

@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 	Graph *graph = createGraph(dimensions_csv->row);
 	for (int i = 0; i <dimensions_csv->row; i++)
 	{
-		addEdge(graph, data[i][(int)node1], data[i][(int)node2], data[i][(int)rate], data[i][(int)resistence]);
+		addEdge(graph,);
 	}
 	printGraph(graph);
 

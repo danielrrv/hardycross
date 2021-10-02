@@ -20,9 +20,7 @@
 typedef struct Node
 {
 	int vertex;
-	struct Node * next;
-	double rate;
-	float resistence;
+	struct Node ** next;
 } Node;
 
 
@@ -40,20 +38,14 @@ typedef struct
 // }LinkedList;
 
 //Prototypes
-Node *createNode(int, double, float);
-Graph *createGraph(int);
-void addEdge(Graph *, Node *, Node *, double, float);
-void printGraph(Graph *);
-Node * findNode(Graph *,int);
+Node *create_node(Graph *, int);
+Graph *create_graph(int);
+void static add_node(Graph *, Node *);
+void add_edge(Graph *, Node *, Node *);
+void print_graph(Graph *);
+void static link_nodes(Node *, Node *, int );
+Node ** unique_nodes(Node **);
+bool in_array(Node * , Node ** );
 
-void add_element_to_matrix(Node*);
-
-
-
-// LinkedList * create_linked_list(int);
-// void add_element(Node*);
-// void remove_element(Node*);
-// void find_element_index(int);
-// void find 
 
 #endif

@@ -3,7 +3,7 @@
 #include "types.h"
 
 //Implementation to create Nodes
-Node *create_node(Graph* graph, int vtx)
+Node *create_node(Graph *graph, int vtx)
 {
 	Node *node = (Node *)malloc(sizeof(Node));
 	node->next = (Node **)malloc(sizeof(Node) * (graph->number_of_vertices - 1));
@@ -11,9 +11,12 @@ Node *create_node(Graph* graph, int vtx)
 	int i;
 	for (i = 0; i < graph->number_of_vertices - 1; i++)
 		node->next[i] = NULL;
-	if(!in_array(node, graph->adj)){
-			add_node(graph, node);
-	}else{
+	if (!in_array(node, graph->adj))
+	{
+		add_node(graph, node);
+	}
+	else
+	{
 		fprintf(stderr, "The vertex %d already exist\n\n", vtx);
 		exit(1);
 	}
@@ -22,14 +25,15 @@ Node *create_node(Graph* graph, int vtx)
 
 void static add_node(Graph *graph, Node *node)
 {
-	int i  =0;
-	while(i<graph->number_of_vertices){
-		if(graph->adj[i]==NULL){
+	int i = 0;
+	while (i < graph->number_of_vertices)
+	{
+		if (graph->adj[i] == NULL)
+		{
 			graph->adj[i] = node;
 			break;
 		}
 		i++;
-
 	}
 }
 
@@ -65,38 +69,22 @@ void static link_nodes(Node *src, Node *dest, int V)
 	}
 }
 
-Node ** unique_nodes(Node ** nodes){
+Node **unique_nodes(Node **nodes)
+{
 	int length = sizeof(nodes) / sizeof(Node);
-	
-	return nodes;	
+
+	return nodes;
 }
 
-bool in_array(Node * value, Node ** values){
+bool in_array(Node *value, Node **values)
+{
 	Node **indirect = values;
-	while(*indirect!=NULL){
-		if((*indirect)->vertex == value->vertex)
+	while (*indirect != NULL)
+	{
+		if ((*indirect)->vertex == value->vertex)
 			return true;
 		indirect++;
 	}
-	return false; 
+	return false;
 }
 
-// void generate_table(grap){
-
-// }
-
-// void print_graph(Graph *graph)
-// {
-// 	int v;
-// 	for (v = 0; v < graph->number_of_vertices; v++)
-// 	{
-// 		Node *temp = graph->adj[v];
-// 		printf("\n Vertex %d: ", v);
-// 		while (temp)
-// 		{
-// 			printf("%d -> ", temp->vertex);
-// 			temp = temp->next;
-// 		}
-// 		printf("\n");
-// 	}
-// };

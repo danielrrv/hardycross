@@ -11,15 +11,14 @@ Node *create_node(Graph *graph, int vtx)
 	int i;
 	for (i = 0; i < graph->number_of_vertices - 1; i++)
 		node->next[i] = NULL;
-	if (!in_array(node, graph->adj))
-	{
-		add_node(graph, node);
-	}
-	else
+		
+	if (in_array(node, graph->adj))
 	{
 		fprintf(stderr, "The vertex %d already exist\n\n", vtx);
 		exit(1);
+		
 	}
+	add_node(graph, node);
 	return node;
 };
 
@@ -69,12 +68,6 @@ void static link_nodes(Node *src, Node *dest, int V)
 	}
 }
 
-Node **unique_nodes(Node **nodes)
-{
-	int length = sizeof(nodes) / sizeof(Node);
-
-	return nodes;
-}
 
 bool in_array(Node *value, Node **values)
 {

@@ -81,3 +81,14 @@ bool in_array(Node *value, Node **values)
 	return false;
 }
 
+
+
+Edge * create_edge(Node * node_1, Node * node_2, Data *data){
+	Edge * edge  = (Edge*)malloc(sizeof(Edge));
+	edge->nodes = (Node **)malloc(sizeof(Node*) * 2);
+	edge->data = data; 
+	edge->nodes[0] = node_1;
+	edge->nodes[1] = node_2;
+	printf("creating the edges\nnode[0]:\t%d\nnode[1]:\t%d\n", node_1->vertex, node_2->vertex );
+	return edge;
+}

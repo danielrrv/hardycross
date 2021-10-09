@@ -92,3 +92,25 @@ void TESTCASE_add_nodes(void)
 
 }
 
+
+void TESTCASE_create_edge(){
+	Graph *graph = create_graph(10);
+	Node *node_1 = create_node(graph, 1);
+	Node *node_2 = create_node(graph, 2);
+	Node *node_3 = create_node(graph, 3);
+	Node *node_4 = create_node(graph, 4);
+	Data * data = malloc(sizeof(Data));
+	data->rate = 0.13;
+	data->resistence = 0.345;
+
+ 	Edge * edge = create_edge(node_1, node_2, data);
+	assert(edge->nodes[0]->vertex ==node_1->vertex);
+	assert(edge->nodes[1]->vertex==node_2->vertex);
+	free(data);
+	free(node_1);
+	free(node_2);
+	free(node_3);
+	free(node_4);
+	free(graph);
+	print_result("TESTCASE_create_edge()");
+}

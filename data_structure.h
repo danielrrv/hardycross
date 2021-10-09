@@ -23,12 +23,24 @@ typedef struct Node
 	struct Node ** next;
 } Node;
 
+typedef struct Data{
+	float resistence;
+	float rate;
+}Data;
+
+typedef struct Edge {
+	Data * data;
+	Node ** nodes;
+}Edge;
 
 typedef struct
 {
 	int number_of_vertices;
 	Node ** adj;
+	Edge ** edges;
 } Graph;
+
+
 
 
 
@@ -46,6 +58,7 @@ void print_graph(Graph *);
 void static link_nodes(Node *, Node *, int );
 Node ** unique_nodes(Node **);
 bool in_array(Node * , Node ** );
+Edge * create_edge(Node*, Node*, Data *  );
 
 
 #endif

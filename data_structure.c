@@ -92,11 +92,9 @@ Edge * create_edge(Graph * graph,Node * node_1, Node * node_2, Data * data){
 	edge->nodes[0] = node_1;
 	edge->nodes[1] = node_2;
 	if(graph->edges==NULL){
-		printf("Por Aqio\n");
 		graph->edges = (Edge **)malloc(sizeof(Edge*));
 		graph->edges[no_edges] = edge;
 	}else{
-		printf("Por Aca\n");
 		// size_t len = *(&graph->edges-1) + 1; 
 		graph->edges = (Edge **)realloc(graph->edges,++no_edges);
 		graph->edges[no_edges] = edge;

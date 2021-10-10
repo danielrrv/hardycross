@@ -103,10 +103,19 @@ void TESTCASE_create_edge(){
 	data->rate = 0.13;
 	data->resistence = 0.345;
 
- 	Edge * edge = create_edge(node_1, node_2, data);
+ 	Edge * edge = create_edge(graph, node_1, node_2, data);
 	assert(edge->nodes[0]->vertex ==node_1->vertex);
 	assert(edge->nodes[1]->vertex==node_2->vertex);
+	assert(graph->edges[0]->data->resistence > 0);
+	
+	Edge * edge1 = create_edge(graph, node_4, node_3, data);
+	assert(edge1->nodes[0]->vertex ==node_4->vertex);
+	assert(edge1->nodes[1]->vertex==node_3->vertex);
+	assert(graph->edges[1]->data->resistence > 0);
+
 	free(data);
+	free(edge1);
+	free(edge);
 	free(node_1);
 	free(node_2);
 	free(node_3);

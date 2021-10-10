@@ -44,6 +44,7 @@ Graph *create_graph(int V)
 	int i;
 	for (i = 0; i < V; i++)
 		graph->adj[i] = NULL;
+	graph->edges = NULL;
 	return graph;
 };
 
@@ -83,12 +84,23 @@ bool in_array(Node *value, Node **values)
 
 
 
-Edge * create_edge(Node * node_1, Node * node_2, Data *data){
+Edge * create_edge(Graph * graph,Node * node_1, Node * node_2, Data * data){
+	int static no_edges = 0;
 	Edge * edge  = (Edge*)malloc(sizeof(Edge));
 	edge->nodes = (Node **)malloc(sizeof(Node*) * 2);
 	edge->data = data; 
 	edge->nodes[0] = node_1;
 	edge->nodes[1] = node_2;
+	if(graph->edges==NULL){
+		printf("Por Aqio\n");
+		graph->edges = (Edge **)malloc(sizeof(Edge*));
+		graph->edges[no_edges] = edge;
+	}else{
+		printf("Por Aca\n");
+		// size_t len = *(&graph->edges-1) + 1; 
+		graph->edges = (Edge **)realloc(graph->edges,++no_edges);
+		graph->edges[no_edges] = edge;
+	}
 	printf("creating the edges\nnode[0]:\t%d\nnode[1]:\t%d\n", node_1->vertex, node_2->vertex );
 	return edge;
 }

@@ -58,7 +58,7 @@ void print_graph(Graph *);
 void static link_nodes(Node *, Node *, int );
 Node ** unique_nodes(Node **);
 bool in_array(Node * , Node ** );
-Edge * create_edge(Node*, Node*, Data *  );
+Edge * create_edge(Graph*, Node*, Node*, Data *);
 
 
 #endif

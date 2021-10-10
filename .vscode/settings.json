@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"types.h": "c",
+		"data_structure.h": "c",
+		"limits": "c"
+	}
+}

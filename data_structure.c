@@ -3,10 +3,10 @@
 #include "types.h"
 
 //Implementation to create Nodes
-Node *create_node(Graph *graph, int vtx)
+node_t * create_node(graph_t *graph, int vtx)
 {
-	Node *node = (Node *)malloc(sizeof(Node));
-	node->next = (Node **)malloc(sizeof(Node) * (graph->number_of_vertices - 1));
+	node_t * node = (node_t *)malloc(sizeof(node_t));
+	node->next = (node_t **)malloc(sizeof(node_t) * (graph->number_of_vertices - 1));
 	node->vertex = vtx;
 	int i;
 	for (i = 0; i < graph->number_of_vertices - 1; i++)
@@ -22,7 +22,7 @@ Node *create_node(Graph *graph, int vtx)
 	return node;
 };
 
-void static add_node(Graph *graph, Node *node)
+void static add_node(graph_t *graph, node_t *node)
 {
 	int i = 0;
 	while (i < graph->number_of_vertices)
@@ -36,11 +36,11 @@ void static add_node(Graph *graph, Node *node)
 	}
 }
 
-Graph *create_graph(int V)
+graph_t *create_graph(int V)
 {
-	Graph *graph = (Graph *)malloc(sizeof(Graph));
+	graph_t * graph = (graph_t *)malloc(sizeof(graph_t));
 	graph->number_of_vertices = V;
-	graph->adj = (Node **)malloc(V * sizeof(Node));
+	graph->adj = (node_t **)malloc(V * sizeof(node_t));
 	int i;
 	for (i = 0; i < V; i++)
 		graph->adj[i] = NULL;
@@ -49,13 +49,13 @@ Graph *create_graph(int V)
 };
 
 //Implemention to add edges to the graph
-void add_edge(Graph *graph, Node *src, Node *dest)
+void add_edge(graph_t *graph, node_t *src, node_t *dest)
 {
 	link_nodes(src, dest, graph->number_of_vertices);
 	link_nodes(dest, src, graph->number_of_vertices);
 };
 
-void static link_nodes(Node *src, Node *dest, int V)
+void static link_nodes(node_t *src, node_t *dest, int V)
 {
 	int i = 0;
 	while (i <= V - 1)
@@ -70,9 +70,9 @@ void static link_nodes(Node *src, Node *dest, int V)
 }
 
 
-bool in_array(Node *value, Node **values)
+bool in_array(node_t*value, node_t **values)
 {
-	Node **indirect = values;
+	node_t **indirect = values;
 	while (*indirect != NULL)
 	{
 		if ((*indirect)->vertex == value->vertex)
@@ -84,19 +84,18 @@ bool in_array(Node *value, Node **values)
 
 
 
-Edge * create_edge(Graph * graph,Node * node_1, Node * node_2, Data * data){
+edge_t * create_edge(graph_t * graph,node_t * node_1, node_t * node_2, data_t * data){
 	int static no_edges = 0;
-	Edge * edge  = (Edge*)malloc(sizeof(Edge));
-	edge->nodes = (Node **)malloc(sizeof(Node*) * 2);
+	edge_t * edge  = (edge_t*)malloc(sizeof(edge_t));
 	edge->data = data; 
 	edge->nodes[0] = node_1;
 	edge->nodes[1] = node_2;
 	if(graph->edges==NULL){
-		graph->edges = (Edge **)malloc(sizeof(Edge*));
+		graph->edges = (edge_t **)malloc(sizeof(edge_t*));
 		graph->edges[no_edges] = edge;
 	}else{
 		// size_t len = *(&graph->edges-1) + 1; 
-		graph->edges = (Edge **)realloc(graph->edges,++no_edges);
+		graph->edges = (edge_t **)realloc(graph->edges,++no_edges);
 		graph->edges[no_edges] = edge;
 	}
 	printf("creating the edges\nnode[0]:\t%d\nnode[1]:\t%d\n", node_1->vertex, node_2->vertex );

@@ -1,9 +1,9 @@
 #include "types.h"
 
-#ifndef  DATA_STRUCTURE_H
+#ifndef DATA_STRUCTURE_H
 #define DATA_STRUCTURE_H
 
-//Adjacency Matrix: 
+//Adjacency Matrix:
 
 /**
  * Edge of the graph that holds nodes and theirs properties
@@ -17,48 +17,44 @@
  * Each time a relationship is established, both nodes keeps reference from each other.
  * Each node has at most n-1 relationships with other nodes. however the allocation is dynamic based upon the new relationships.
 */
-typedef struct Node
+typedef struct node_t
 {
 	int vertex;
-	struct Node ** next;
-} Node;
+	struct node_t **next;
+} node_t;
 
-typedef struct Data{
+typedef struct data_t
+{
 	float resistence;
 	float rate;
-}Data;
+} data_t;
 
-typedef struct Edge {
-	Data * data;
-	Node ** nodes;
-}Edge;
+typedef struct edge_t
+{
+	data_t *data;
+	node_t *nodes[2];
+} edge_t;
 
-typedef struct
+typedef struct graph_t
 {
 	int number_of_vertices;
-	Node ** adj;
-	Edge ** edges;
-} Graph;
-
-
-
-
-
+	node_t **adj;
+	edge_t **edges;
+} graph_t;
 
 // typedef struct LinkedList{
 // 	Node * nodes;
 // }LinkedList;
 
 //Prototypes
-Node *create_node(Graph *, int);
-Graph *create_graph(int);
-void static add_node(Graph *, Node *);
-void add_edge(Graph *, Node *, Node *);
-void print_graph(Graph *);
-void static link_nodes(Node *, Node *, int );
-Node ** unique_nodes(Node **);
-bool in_array(Node * , Node ** );
-Edge * create_edge(Graph*, Node*, Node*, Data *);
-
+node_t *create_node(graph_t *, int);
+graph_t *create_graph(int);
+void static add_node(graph_t *, node_t *);
+void add_edge(graph_t *, node_t *, node_t *);
+void print_graph(graph_t *);
+void static link_nodes(node_t *, node_t *, int);
+node_t **unique_nodes(node_t **);
+bool in_array(node_t *, node_t **);
+edge_t *create_edge(graph_t *, node_t *, node_t *, data_t *);
 
 #endif
